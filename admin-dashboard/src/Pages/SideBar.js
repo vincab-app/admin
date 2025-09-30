@@ -12,8 +12,8 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-center justify-between bg-blue-700 text-white px-4 py-3 shadow-md">
+      {/* Mobile Top Bar (only small screens) */}
+      <div className="md:hidden flex items-center justify-between bg-blue-700 text-white px-4 py-3 shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="text-xl font-bold">VinCab Admin</div>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -36,7 +36,7 @@ const Sidebar = () => {
         </div>
 
         {/* Nav Links */}
-        <nav className="flex-1 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto mt-16 md:mt-0">
           <ul>
             <li>
               <NavLink
