@@ -9,7 +9,7 @@ const Drivers = () => {
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const res = await fetch("http://localhost:8000/drivers/"); // your Django API endpoint
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_drivers/"); // your Django API endpoint
         const data = await res.json();
         setDrivers(data);
       } catch (error) {

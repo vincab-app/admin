@@ -9,8 +9,7 @@ const Rides = () => {
   useEffect(() => {
     const fetchRides = async () => {
       try {
-        // Replace with your Django API endpoint for rides
-        const res = await fetch("http://localhost:8000/rides/");
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_rides/");
         const data = await res.json();
         setRides(data);
       } catch (error) {
@@ -46,34 +45,28 @@ const Rides = () => {
               {rides.map((ride) => (
                 <tr key={ride.id} className="hover:bg-gray-50">
                   {/* Rider */}
-                  <td className="p-4 border-b flex items-center space-x-3">
-                    <img
-                      src={ride.rider?.profile_image}
-                      alt={ride.rider?.full_name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <span>{ride.rider?.full_name}</span>
-                  </td>
+                  <td className="p-4 border-b">{ride.rider_name}</td>
 
                   {/* Driver */}
-                  <td className="p-4 border-b flex items-center space-x-3">
-                    <img
-                      src={ride.driver?.user?.profile_image}
-                      alt={ride.driver?.user?.full_name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <span>{ride.driver?.user?.full_name}</span>
+                  <td className="p-4 border-b">
+                    {ride.driver_name ? ride.driver_name : "Unassigned"}
                   </td>
 
                   {/* Pickup */}
-                  <td className="p-4 border-b">{ride.pickup_location}</td>
+                  <td className="p-4 border-b">
+                    {ride.pickup_lat}, {ride.pickup_lng}
+                  </td>
 
                   {/* Dropoff */}
-                  <td className="p-4 border-b">{ride.dropoff_location}</td>
+                  <td className="p-4 border-b">
+                    {ride.dropoff_lat}, {ride.dropoff_lng}
+                  </td>
 
                   {/* Fare */}
                   <td className="p-4 border-b font-semibold text-blue-600">
-                    KES {ride.fare}
+                    {ride.estimated_fare
+                      ? `KES ${ride.estimated_fare}`
+                      : "Pending"}
                   </td>
 
                   {/* Status */}
@@ -84,6 +77,8 @@ const Rides = () => {
                           ? "bg-green-100 text-green-700"
                           : ride.status === "ongoing"
                           ? "bg-yellow-100 text-yellow-700"
+                          : ride.status === "accepted"
+                          ? "bg-blue-100 text-blue-700"
                           : "bg-red-100 text-red-700"
                       }`}
                     >
@@ -93,7 +88,7 @@ const Rides = () => {
 
                   {/* Date */}
                   <td className="p-4 border-b">
-                    {new Date(ride.date).toLocaleString()}
+                    {new Date(ride.requested_at).toLocaleString()}
                   </td>
                 </tr>
               ))}

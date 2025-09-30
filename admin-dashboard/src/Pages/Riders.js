@@ -9,10 +9,9 @@ const Riders = () => {
   useEffect(() => {
     const fetchRiders = async () => {
       try {
-        // Replace with your Django API endpoint for riders
-        const res = await fetch("http://localhost:8000/riders/");
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_riders/"); // ✅ updated endpoint
         const data = await res.json();
-        setRiders(data);
+        setRiders(data.riders || []); // ✅ use data.riders, fallback to []
       } catch (error) {
         console.error("Error fetching riders:", error);
       } finally {
@@ -54,7 +53,7 @@ const Riders = () => {
                   <td className="p-4 border-b">{rider.phone_number}</td>
                   <td className="p-4 border-b">{rider.email}</td>
                   <td className="p-4 border-b">
-                    {rider.current_lat && rider.current_lng ? (
+                    {rider.current_lat !== 0.0 && rider.current_lng !== 0.0 ? (
                       <span>
                         Lat: {rider.current_lat}, Lng: {rider.current_lng}
                       </span>

@@ -3,17 +3,15 @@ import React from "react";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import { User, Mail, Lock, Moon, Bell } from "lucide-react";
+import Layout from "./Layout";
 
 const Settings = () => {
   return (
+    <Layout title="Settings">
     <div className="flex">
-      {/* Sidebar */}
-      <SideBar />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* TopBar */}
-        <TopBar title="Settings" />
 
         {/* Settings Sections */}
         <div className="p-6 space-y-6">
@@ -95,6 +93,7 @@ const Settings = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 
