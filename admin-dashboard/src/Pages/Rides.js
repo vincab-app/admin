@@ -8,8 +8,14 @@ const Rides = () => {
 
   useEffect(() => {
     const fetchRides = async () => {
+      const token = localStorage.getItem("token");
       try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_rides/");
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_rides/", {
+          method: "GET",
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await res.json();
         setRides(data);
       } catch (error) {

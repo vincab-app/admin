@@ -27,8 +27,14 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
+      const token = localStorage.getItem("token");
       try {
-        const res = await axios.get("https://vincab-backend.onrender.com/dashboard_stats/");
+        const res = await axios.get("https://vincab-backend.onrender.com/dashboard_stats/",{
+          method: "GET",
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+        });
         setStats(res.data);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);

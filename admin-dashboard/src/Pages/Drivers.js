@@ -7,9 +7,16 @@ const Drivers = () => {
   const [updatingDriverId, setUpdatingDriverId] = useState(null);
   const [verifyingDriverId, setVerifyingDriverId] = useState(null);
 
+  const token = localStorage.getItem("token");
+
   const fetchDrivers = async () => {
     try {
-      const res = await fetch("https://vincab-backend.onrender.com/get_all_drivers/");
+      const res = await fetch("https://vincab-backend.onrender.com/get_all_drivers/",{
+          method: "GET",
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+        });
       const data = await res.json();
       setDrivers(data);
     } catch (error) {
@@ -28,7 +35,10 @@ const Drivers = () => {
     try {
       const res = await fetch(`https://vincab-backend.onrender.com/update_driver_status/${driverId}/`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,  
+        },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {
@@ -49,7 +59,10 @@ const Drivers = () => {
     try {
       const res = await fetch(`https://vincab-backend.onrender.com/update_driver_status/${driverId}/`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
         body: JSON.stringify({ verified: true }),
       });
       if (res.ok) {

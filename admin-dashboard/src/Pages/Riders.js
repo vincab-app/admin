@@ -8,8 +8,14 @@ const Riders = () => {
 
   useEffect(() => {
     const fetchRiders = async () => {
+      const token = localStorage.getItem("token");
       try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_riders/"); // ✅ updated endpoint
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_riders/", {
+          method: "GET",
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+        }); // ✅ updated endpoint
         const data = await res.json();
         setRiders(data.riders || []); // ✅ use data.riders, fallback to []
       } catch (error) {

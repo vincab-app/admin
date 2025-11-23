@@ -20,15 +20,15 @@ const Signin = () => {
         email,
         password,
       });
-      if(response.data.role !== 'admin'){
+      if(response.data.user.role !== 'admin'){
         setError("Access denied. Admins only.");
         setLoading(false);
         return;
       }
 
       // Save token & user info to localStorage
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
       navigate("/dashboard"); // redirect to dashboard
     } catch (err) {

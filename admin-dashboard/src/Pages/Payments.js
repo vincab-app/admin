@@ -9,9 +9,15 @@ const Payments = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const fetchPayments = async () => {
       try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_payments/");
+        const res = await fetch("https://vincab-backend.onrender.com/get_all_payments/", {
+          method: "GET",
+          headers: {
+                Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await res.json();
         setPayments(data);
       } catch (error) {
