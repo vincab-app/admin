@@ -33,8 +33,6 @@ const Payments = () => {
   return (
      <Layout title="Riders">
     <div className="flex">
-
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
 
