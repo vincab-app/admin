@@ -7,6 +7,7 @@ import Rides from './Pages/Rides';
 import Payments from './Pages/Payments';
 import Settings from './Pages/Settings';
 import Signin from './Pages/Signin';
+import RiderManage from './Pages/RiderManage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/rides" element={<Rides />} />
         <Route path="/payments" element={<Payments />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/riders/:id" element={<RiderManage />} />
 
         
       </Routes>

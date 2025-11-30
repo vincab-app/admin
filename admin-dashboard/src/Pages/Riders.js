@@ -5,6 +5,8 @@ import Layout from "./Layout";
 const Riders = () => {
   const [riders, setRiders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
 
   useEffect(() => {
     const fetchRiders = async () => {
@@ -27,8 +29,26 @@ const Riders = () => {
     fetchRiders();
   }, []);
 
+  const filteredRiders = riders.filter((r) =>
+  `${r.full_name} ${r.phone_number} ${r.email}`
+    .toLowerCase()
+    .includes(search.toLowerCase())
+);
+
+
   return (
     <Layout title="Riders">
+
+   <div className="mb-4 flex justify-between items-center">
+  <input
+    type="text"
+    placeholder="Search by name, phone or email..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+  />
+</div>
+
       {loading ? (
         <p className="text-gray-600">Loading riders...</p>
       ) : riders.length === 0 ? (
@@ -43,10 +63,11 @@ const Riders = () => {
                 <th className="p-4 border-b">Email</th>
                 <th className="p-4 border-b">Location</th>
                 <th className="p-4 border-b">Joined</th>
+                <th className="p-4 border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {riders.map((rider) => (
+              {filteredRiders.map((rider) => (
                 <tr key={rider.id} className="hover:bg-gray-50">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
@@ -70,6 +91,15 @@ const Riders = () => {
                   <td className="p-4 border-b">
                     {new Date(rider.date_joined).toLocaleDateString()}
                   </td>
+                  <td className="p-4 border-b">
+  <button
+    onClick={() => window.location.href = `/riders/${rider.id}`}
+    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg"
+  >
+    Manage
+  </button>
+</td>
+
                 </tr>
               ))}
             </tbody>
