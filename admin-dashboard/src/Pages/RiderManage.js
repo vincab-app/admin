@@ -9,13 +9,13 @@ export default function RiderManage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
-  // ✅ Fetch Single Rider
+  // Fetch Single Rider
   const fetchRider = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(`http://192.168.100.5:8000/get_single_rider/${id}/`, {
+      const res = await fetch(`https://vincab-backend.onrender.com/get_single_rider/${id}/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -35,7 +35,7 @@ export default function RiderManage() {
     fetchRider();
   }, [id]);
 
-  // ✅ Admin Action
+  // Admin Action
   const adminAction = async (action) => {
     if (!window.confirm(`Are you sure you want to ${action} this rider?`)) return;
 
@@ -45,7 +45,7 @@ export default function RiderManage() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://192.168.100.5:8000/admin_rider_action/", {
+      const res = await fetch("https://vincab-backend.onrender.com/admin_rider_action/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function RiderManage() {
 
       setFeedback("Action completed successfully");
 
-      // ✅ Re-fetch rider to update UI
+      // Re-fetch rider to update UI
       fetchRider();
 
     } catch (error) {
@@ -76,7 +76,7 @@ export default function RiderManage() {
     }
   };
 
-  // ✅ LOADING STATE
+  // LOADING STATE
   if (loading) {
     return (
       <Layout title="Loading rider...">
@@ -98,7 +98,7 @@ export default function RiderManage() {
 
       <div className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow space-y-6">
 
-        {/* ✅ Profile */}
+        {/* Profile */}
         <div className="flex items-center space-x-4">
           <img
             src={rider.profile_image || "/avatar.png"}
@@ -111,7 +111,7 @@ export default function RiderManage() {
           </div>
         </div>
 
-        {/* ✅ Details */}
+        {/* Details */}
         <div className="grid grid-cols-2 gap-4">
           <p><b>Phone:</b> {rider.phone_number}</p>
           <p>
@@ -126,7 +126,7 @@ export default function RiderManage() {
           <p><b>Verified:</b> {rider.phone_verified == true ? "Yes" : "No"}</p>
         </div>
 
-        {/* ✅ Feedback */}
+        {/*  Feedback */}
         {feedback && (
           <div className={`text-sm text-center font-semibold ${
             feedback.includes("✅") ? "text-green-600" : feedback.includes("❌") ? "text-red-600" : "text-blue-600"
@@ -135,7 +135,7 @@ export default function RiderManage() {
           </div>
         )}
 
-        {/* ✅ Action Buttons */}
+        {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-4 pt-4">
 
           <ActionButton
@@ -173,7 +173,7 @@ export default function RiderManage() {
   );
 }
 
-/* ✅ Reusable Button Component */
+/* Reusable Button Component */
 function ActionButton({ label, color, onClick, loading }) {
   return (
     <button
