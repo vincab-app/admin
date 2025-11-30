@@ -1,11 +1,14 @@
 // Pages/Signin.js
 import React, { useState } from "react";
-import axios from "axios"; // install if not already: npm install axios
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // ✅ NEW
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -20,17 +23,17 @@ const Signin = () => {
         email,
         password,
       });
-      if(response.data.user.role !== 'admin'){
+
+      if (response.data.user.role !== "admin") {
         setError("Access denied. Admins only.");
         setLoading(false);
         return;
       }
 
-      // Save token & user info to localStorage
       localStorage.setItem("token", response.data.access_token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      navigate("/dashboard"); // redirect to dashboard
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       if (err.response) {
@@ -49,10 +52,14 @@ const Signin = () => {
         <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
           VinCab
         </h1>
+
         {error && (
           <p className="text-red-600 text-sm text-center mb-4">{error}</p>
         )}
+
         <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-600">
               Email
@@ -67,18 +74,31 @@ const Signin = () => {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-600">
               Password
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Enter your password"
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"} // ✅ Toggle
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
+                className="mt-1 w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+
+              {/* Eye Icon */}
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-blue-600"
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </span>
+            </div>
           </div>
 
           <button
