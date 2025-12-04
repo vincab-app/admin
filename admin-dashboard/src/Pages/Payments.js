@@ -86,7 +86,7 @@ const Payments = () => {
                           <span
                             className={`px-2 py-1 rounded text-white text-xs font-medium
                               ${
-                                payment.status === "success"
+                                payment.status === "paid"
                                   ? "bg-green-600"
                                   : payment.status === "pending"
                                   ? "bg-yellow-500"

@@ -147,7 +147,7 @@ export default function RiderManage() {
 
           <ActionButton
             label="Block"
-            color="yellow"
+            color="red"
             loading={actionLoading}
             onClick={() => adminAction("block")}
           />
