@@ -1,14 +1,22 @@
 // components/Sidebar.js
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // icons
+import { LogOut, Menu, X } from "lucide-react"; // icons
+import { useNavigate } from "react-router-dom";
+
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const linkClasses =
     "block px-6 py-3 hover:bg-blue-600 cursor-pointer transition-colors";
   const activeClasses = "bg-blue-800";
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    navigate("/");
+  };
 
   return (
     <>
@@ -95,6 +103,17 @@ const Sidebar = () => {
             </li>
             <li>
               <NavLink
+                to="/pushnotification"
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `${linkClasses} ${isActive ? activeClasses : ""}`
+                }
+              >
+                Push Notifications
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/settings"
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
@@ -106,6 +125,17 @@ const Sidebar = () => {
             </li>
           </ul>
         </nav>
+      {/* bottom section */}
+      <div className="border-t border-blue-600 px-6 py-4">
+        <button onClick={handleLogout}
+        className="w-full flex items-center gap-2 text-white hover:text-white hover:bg-blue-600 px-3 py-2 rounded-lg transition">
+          <LogOut size={18} />
+          Logout
+        </button>
+        <p className="text-xs text-blue-200 mt-3 text-center">
+          Version 1.0.0
+        </p>
+      </div>
       </aside>
 
       {/* Background Overlay (mobile only) */}
