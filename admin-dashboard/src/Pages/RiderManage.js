@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "./Layout";
 import api from "../Api/Api";
 import Swal from "sweetalert2";
+import { API_URL } from "../Env/Env";
 
 
 export default function RiderManage() {
@@ -120,7 +121,7 @@ useEffect(() => {
         {/* Profile */}
         <div className="flex items-center space-x-4">
           <img
-            src={rider.profile_image || "/avatar.png"}
+            src={`${API_URL}${rider.profile_image}` || "/avatar.png"}
             alt="profile"
             className="w-16 h-16 rounded-full object-cover"
           />

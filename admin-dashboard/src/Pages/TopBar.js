@@ -1,5 +1,6 @@
 // components/Topbar.js
 import React from "react";
+import { API_URL } from "../Env/Env";
 
 const Topbar = ({ title }) => {
   const storedUser = localStorage.getItem("user");
@@ -12,7 +13,7 @@ const Topbar = ({ title }) => {
         <div className="flex items-center space-x-4">
           <span className="font-medium">{user.user_name}</span>
           <img
-            src={user.profile_image}
+            src={`${API_URL}${user.profile_image}`}
             alt="profile"
             className="w-10 h-10 rounded-full object-cover"
           />

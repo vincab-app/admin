@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import api from "../Api/Api";
 import Swal from "sweetalert2";
+import { API_URL } from "../Env/Env";
 
 const Drivers = () => {
   const [drivers, setDrivers] = useState([]);
@@ -107,7 +108,7 @@ const Drivers = () => {
                 <tr key={driver.id} className="hover:bg-gray-50">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
-                      src={driver.user.profile_image}
+                      src={`${API_URL}${driver.user.profile_image}`}
                       alt={driver.user.full_name}
                       className="w-10 h-10 rounded-full object-cover"
                     />

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import api from "../Api/Api";
 import Swal from "sweetalert2";
+import { API_URL } from "../Env/Env";
 
 const Riders = () => {
   const [riders, setRiders] = useState([]);
@@ -69,7 +70,7 @@ const Riders = () => {
                 <tr key={rider.id} className="hover:bg-gray-50">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
-                      src={rider.profile_image}
+                      src={`${API_URL}${rider.profile_image}`}
                       alt={rider.full_name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
