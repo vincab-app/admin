@@ -1,6 +1,8 @@
 // src/screens/Rides.js
 import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 const Rides = () => {
   const [rides, setRides] = useState([]);
@@ -8,18 +10,12 @@ const Rides = () => {
 
   useEffect(() => {
     const fetchRides = async () => {
-      const token = localStorage.getItem("token");
       try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_rides/", {
-          method: "GET",
-          headers: {
-                Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setRides(data);
+        const res = await api.get("/get_all_rides/");
+        setRides(res.data);
       } catch (error) {
         console.error("Error fetching rides:", error);
+        Swal.fire("Error!", "Failed to fetch rides.", "error");
       } finally {
         setLoading(false);
       }

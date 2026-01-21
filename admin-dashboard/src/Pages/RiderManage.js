@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
+
 
 export default function RiderManage() {
   const { id } = useParams();
@@ -11,70 +14,86 @@ export default function RiderManage() {
 
   // Fetch Single Rider
   const fetchRider = async () => {
-    setLoading(true);
-    const token = localStorage.getItem("token");
+  setLoading(true);
 
-    try {
-      const res = await fetch(`https://vincab-backend.onrender.com/get_single_rider/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+  try {
+    const res = await api.get(`/get_single_rider/${id}/`);
+    setRider(res.data.rider);
+  } catch (err) {
+    console.error("Fetch error:", err);
 
-      const data = await res.json();
-      setRider(data.rider);
-    } catch (err) {
-      console.error("Fetch error:", err);
-      setFeedback("Failed to load rider");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const msg = err.response?.data?.error || "Failed to load rider";
 
-  useEffect(() => {
-    fetchRider();
-  }, [id]);
+    setFeedback(msg);
+
+    await Swal.fire({
+      title: "Error",
+      text: msg,
+      icon: "error",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchRider();
+}, [id]);
+
 
   // Admin Action
   const adminAction = async (action) => {
-    if (!window.confirm(`Are you sure you want to ${action} this rider?`)) return;
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: `You are about to ${action} this rider.`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, continue",
+    cancelButtonText: "Cancel",
+    confirmButtonColor: "#d33",
+  });
 
-    setActionLoading(true);
-    setFeedback("Processing...");
+  if (!result.isConfirmed) return;
 
-    const token = localStorage.getItem("token");
+  setActionLoading(true);
+  setFeedback("Processing...");
 
-    try {
-      const res = await fetch("https://vincab-backend.onrender.com/admin_rider_action/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          user_id: id,
-          action
-        })
-      });
+  try {
+    const res = await api.post("/admin_rider_action/", {
+      
+      user_id: id,
+      action: action,
+    });
 
-      const data = await res.json();
+    setFeedback(res.data?.message || "Action completed successfully");
 
-      if (!res.ok) {
-        throw new Error(data.error || "Action failed");
-      }
+    await Swal.fire({
+      title: "Success!",
+      text: res.data?.message || "Action completed successfully",
+      icon: "success",
+    });
 
-      setFeedback("Action completed successfully");
+    // Re-fetch rider to update UI
+    fetchRider();
 
-      // Re-fetch rider to update UI
-      fetchRider();
+  } catch (error) {
+    console.error("Action error:", error);
 
-    } catch (error) {
-      console.error("Action error:", error);
-      setFeedback("Action failed!");
-    } finally {
-      setActionLoading(false);
-    }
-  };
+    const errorMsg =
+      error.response?.data?.error || "Action failed!";
+
+    setFeedback(errorMsg);
+
+    await Swal.fire({
+      title: "Error",
+      text: errorMsg,
+      icon: "error",
+    });
+  } finally {
+    setActionLoading(false);
+  }
+};
+
 
   // LOADING STATE
   if (loading) {
@@ -123,7 +142,7 @@ export default function RiderManage() {
             )}
           </p>
           <p><b>Joined:</b> {new Date(rider.date_joined).toLocaleDateString()}</p>
-          <p><b>Verified:</b> {rider.phone_verified == true ? "Yes" : "No"}</p>
+          <p><b>Verified:</b> {rider.phone_verified === true ? "Yes" : "No"}</p>
         </div>
 
         {/*  Feedback */}

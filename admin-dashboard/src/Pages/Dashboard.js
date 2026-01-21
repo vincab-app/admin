@@ -1,6 +1,5 @@
 // Dashboard.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Layout from "./Layout";
 import {
   BarChart,
@@ -11,6 +10,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -27,17 +28,15 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const token = localStorage.getItem("token");
       try {
-        const res = await axios.get("https://vincab-backend.onrender.com/dashboard_stats/",{
-          method: "GET",
-          headers: {
-                Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await api.get("/dashboard_stats/");
         setStats(res.data);
       } catch (error) {
-        console.error("Error fetching dashboard stats:", error);
+        await Swal.fire({
+          title: "Error",
+          text: "Error fetching dashboard stats",
+          icon: "error",
+        });
       } finally {
         setLoading(false);
       }

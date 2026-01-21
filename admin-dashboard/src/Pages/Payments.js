@@ -1,27 +1,25 @@
 // src/screens/admin/Payments.js
 import React, { useEffect, useState } from "react";
-import TopBar from "./TopBar";
-import SideBar from "./SideBar";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const fetchPayments = async () => {
       try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_payments/", {
-          method: "GET",
-          headers: {
-                Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setPayments(data);
+        const res = await api.get("/get_all_payments/");
+        setPayments(res.data);
       } catch (error) {
         console.error("Error fetching payments:", error);
+        Swal.fire(
+          "Error!",
+          "Failed to fetch payments. Please try again later.",
+          "error"
+        );
       } finally {
         setLoading(false);
       }

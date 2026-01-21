@@ -1,6 +1,8 @@
 // src/screens/Riders.js
 import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 const Riders = () => {
   const [riders, setRiders] = useState([]);
@@ -9,25 +11,21 @@ const Riders = () => {
 
 
   useEffect(() => {
-    const fetchRiders = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const res = await fetch("https://vincab-backend.onrender.com/get_all_riders/", {
-          method: "GET",
-          headers: {
-                Authorization: `Bearer ${token}`,
-          },
-        }); // ✅ updated endpoint
-        const data = await res.json();
-        setRiders(data.riders || []); // ✅ use data.riders, fallback to []
-      } catch (error) {
-        console.error("Error fetching riders:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRiders();
-  }, []);
+  const fetchRiders = async () => {
+    try {
+      const res = await api.get("/get_all_riders/");
+      setRiders(res.data.riders || []);
+    } catch (error) {
+      console.error("Error fetching riders:", error);
+      Swal.fire("Error", "Failed to fetch riders.", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchRiders();
+}, []);
+
 
   const filteredRiders = riders.filter((r) =>
   `${r.full_name} ${r.phone_number} ${r.email}`

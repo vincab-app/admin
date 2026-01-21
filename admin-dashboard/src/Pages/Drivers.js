@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 const Drivers = () => {
   const [drivers, setDrivers] = useState([]);
@@ -7,76 +9,78 @@ const Drivers = () => {
   const [updatingDriverId, setUpdatingDriverId] = useState(null);
   const [verifyingDriverId, setVerifyingDriverId] = useState(null);
 
-  const token = localStorage.getItem("token");
-
   const fetchDrivers = async () => {
-    try {
-      const res = await fetch("https://vincab-backend.onrender.com/get_all_drivers/",{
-          method: "GET",
-          headers: {
-                Authorization: `Bearer ${token}`,
-          },
-        });
-      const data = await res.json();
-      setDrivers(data);
-    } catch (error) {
-      console.error("Error fetching drivers:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const res = await api.get("/get_all_drivers/");
+    setDrivers(res.data || []);
+  } catch (error) {
+    console.error("Error fetching drivers:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchDrivers();
   }, []);
 
   const handleUpdateStatus = async (driverId, newStatus) => {
-    setUpdatingDriverId(driverId);
-    try {
-      const res = await fetch(`https://vincab-backend.onrender.com/update_driver_status/${driverId}/`, {
-        method: "PATCH",
-        headers: { 
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,  
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (res.ok) {
-        fetchDrivers();
-        alert("Driver status updated successfully!");
-      } else {
-        alert("Failed to update driver status.");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-    } finally {
-      setUpdatingDriverId(null);
-    }
-  };
+  setUpdatingDriverId(driverId);
+  try {
+    await api.patch(`/update_driver_status/${driverId}/`, {
+      status: newStatus,
+    });
+    fetchDrivers();
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Driver status has been updated",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    console.error("Error updating status:", error);
+    // swal alert
+    Swal.fire({
+      title: "Error!",
+      text: error.response?.data?.error || "Something went wrong!",
+      icon: "error",
+    });
+  } finally {
+    setUpdatingDriverId(null);
+  }
+};
+
 
   const handleVerifyDriver = async (driverId) => {
-    setVerifyingDriverId(driverId);
-    try {
-      const res = await fetch(`https://vincab-backend.onrender.com/update_driver_status/${driverId}/`, {
-        method: "PATCH",
-        headers: { 
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
-        },
-        body: JSON.stringify({ verified: true }),
-      });
-      if (res.ok) {
-        fetchDrivers();
-        alert("Driver verified successfully!");
-      } else {
-        alert("Failed to verify driver.");
-      }
-    } catch (error) {
-      console.error("Error verifying driver:", error);
-    } finally {
-      setVerifyingDriverId(null);
-    }
-  };
+  setVerifyingDriverId(driverId);
+  try {
+    await api.patch(`/update_driver_status/${driverId}/`, {
+      verified: true,
+    });
+    fetchDrivers();
+  
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Driver has been verified",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    console.error("Error verifying driver:", error);
+    
+    Swal.fire({
+      title: "Error!",
+      text: error.response?.data?.error || "Something went wrong!",
+      icon: "error",
+    });
+  } finally {
+    setVerifyingDriverId(null);
+  }
+};
+
 
   return (
     <Layout title="Drivers">

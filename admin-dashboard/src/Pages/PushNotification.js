@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import Layout from "./Layout";
+import api from "../Api/Api";
+import Swal from "sweetalert2";
 
 export default function PushNotification() {
   const [title, setTitle] = useState("");
@@ -9,39 +10,41 @@ export default function PushNotification() {
   const [loading, setLoading] = useState(false);
   const [responseMsg, setResponseMsg] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setResponseMsg("");
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setResponseMsg("");
 
-    try {
-      const res = await axios.post(
-        "https://vincab-backend.onrender.com/send_push_notification/",
-        {
-          title,
-          message,
-          data: data ? JSON.parse(data) : {},
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+  try {
+    const res = await api.post("/send_push_notification/", {
+      title,
+      message,
+      data: data ? JSON.parse(data) : {},
+    });
 
-      setResponseMsg(res.data.message);
-      setTitle("");
-      setMessage("");
-      setData("");
-    } catch (error) {
-      setResponseMsg(
-        error.response?.data?.error || "Failed to send notification"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    setResponseMsg(res.data.message);
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: res.data.message,
+    });
+    setTitle("");
+    setMessage("");
+    setData("");
+  } catch (error) {
+    setResponseMsg(
+      error.response?.data?.error || "Failed to send notification"
+    );
+    Swal.fire({
+      icon: "error",
+      title: "Error!",
+      text: error.response?.data?.error || "Failed to send notification",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <Layout title="Send Push Notification">

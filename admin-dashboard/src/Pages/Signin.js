@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { API_URL } from "../Env/Env";
+import Swal from "sweetalert2";
 
 
 const Signin = () => {
@@ -19,13 +21,19 @@ const Signin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("https://vincab-backend.onrender.com/signin/", {
+      const response = await axios.post(`${API_URL}/signin/`, {
         email,
         password,
       });
 
       if (response.data.user.role !== "admin") {
         setError("Access denied. Admins only.");
+
+        Swal.fire({
+          icon: "error",
+          title: "Access Denied",
+          text: "Only admins can log in.",
+        });
         setLoading(false);
         return;
       }
@@ -38,8 +46,10 @@ const Signin = () => {
       console.error(err);
       if (err.response) {
         setError(err.response.data.message || "Login failed");
+        Swal.fire("Error", err.response.data.message || "Login failed", "error");
       } else {
         setError("Network error. Try again.");
+        Swal.fire("Error", "Network error. Try again.", "error");
       }
     } finally {
       setLoading(false);
