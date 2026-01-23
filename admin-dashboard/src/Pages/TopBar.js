@@ -4,7 +4,7 @@ import { API_URL } from "../Env/Env";
 
 const Topbar = ({ title }) => {
   const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null; // parse safely
+  const user = storedUser ? JSON.parse(storedUser) : null;
 
   return (
     <header className="h-16 bg-white shadow flex items-center justify-between px-6">
