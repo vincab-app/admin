@@ -37,7 +37,7 @@ const Payments = () => {
         <div className="p-6">
           {/* Payments Table */}
           <h2 className="text-2xl font-bold mb-4">Payments</h2>
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
             <div className="overflow-y-auto max-h-[500px]">
               <table className="w-full border-collapse">
                 <thead>
@@ -55,13 +55,13 @@ const Payments = () => {
                 <tbody>
                   {loading ? (
                     <tr>
-                      <td colSpan="8" className="p-4 text-center">
+                      <td colSpan="8" className="p-4 text-center dark:text-gray-100">
                         Loading payments...
                       </td>
                     </tr>
                   ) : payments.length === 0 ? (
                     <tr>
-                      <td colSpan="8" className="p-4 text-center">
+                      <td colSpan="8" className="p-4 text-center dark:text-gray-100">
                         No payments found.
                       </td>
                     </tr>
@@ -69,17 +69,17 @@ const Payments = () => {
                     payments.map((payment) => (
                       <tr
                         key={payment.id}
-                        className="border-b hover:bg-gray-50 transition"
+                        className="border-b hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                       >
                         <td className="p-2">
                           {payment.transaction_reference || `TXN-${payment.id}`}
                         </td>
-                        <td className="p-2">{payment.rider_name}</td>
-                        <td className="p-2">{payment.driver_name}</td>
+                        <td className="p-2 dark:text-gray-100">{payment.rider_name}</td>
+                        <td className="p-2 dark:text-gray-100">{payment.driver_name}</td>
                         <td className="p-2 font-semibold">
                           {parseFloat(payment.amount).toFixed(2)}
                         </td>
-                        <td className="p-2">{payment.method}</td>
+                        <td className="p-2 dark:text-gray-100">{payment.method}</td>
                         <td className="p-2">
                           <span
                             className={`px-2 py-1 rounded text-white text-xs font-medium

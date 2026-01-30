@@ -28,12 +28,12 @@ const Rides = () => {
       {loading ? (
         <p className="text-gray-600">Loading rides...</p>
       ) : rides.length === 0 ? (
-        <p className="text-gray-600">No rides found.</p>
+        <p className="text-gray-600 dark:text-gray-800">No rides found.</p>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
           <table className="min-w-full border-collapse">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold text-left">
                 <th className="p-4 border-b">Rider</th>
                 <th className="p-4 border-b">Driver</th>
                 <th className="p-4 border-b">Pickup</th>
@@ -45,27 +45,27 @@ const Rides = () => {
             </thead>
             <tbody>
               {rides.map((ride) => (
-                <tr key={ride.id} className="hover:bg-gray-50">
+                <tr key={ride.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                   {/* Rider */}
-                  <td className="p-4 border-b">{ride.rider_name}</td>
+                  <td className="p-4 border-b dark:text-gray-100">{ride.rider_name}</td>
 
                   {/* Driver */}
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">
                     {ride.driver_name ? ride.driver_name : "Unassigned"}
                   </td>
 
                   {/* Pickup */}
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">
                     {ride.pickup_lat}, {ride.pickup_lng}
                   </td>
 
                   {/* Dropoff */}
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">
                     {ride.dropoff_lat}, {ride.dropoff_lng}
                   </td>
 
                   {/* Fare */}
-                  <td className="p-4 border-b font-semibold text-blue-600">
+                  <td className="p-4 border-b font-semibold text-blue-600 dark:text-blue-400">
                     {ride.estimated_fare
                       ? `KES ${ride.estimated_fare}`
                       : "Pending"}
@@ -89,7 +89,7 @@ const Rides = () => {
                   </td>
 
                   {/* Date */}
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">
                     {new Date(ride.requested_at).toLocaleString()}
                   </td>
                 </tr>

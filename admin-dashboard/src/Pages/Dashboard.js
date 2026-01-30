@@ -64,43 +64,43 @@ function Dashboard() {
     <Layout title="Dashboard">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Total Drivers</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Total Drivers</h2>
           <p className="text-2xl font-bold text-blue-600">{stats.total_drivers}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Total Riders</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Total Riders</h2>
           <p className="text-2xl font-bold text-green-600">{stats.total_riders}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Total Rides</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Total Rides</h2>
           <p className="text-2xl font-bold text-purple-600">{stats.total_rides}</p>
         </div>
       </div>
 
       {/* Earnings Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Daily Earnings</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Daily Earnings</h2>
           <p className="text-xl font-bold text-indigo-600">KES {stats.daily_earnings}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Weekly Earnings</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Weekly Earnings</h2>
           <p className="text-xl font-bold text-indigo-600">KES {stats.weekly_earnings}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Monthly Earnings</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Monthly Earnings</h2>
           <p className="text-xl font-bold text-indigo-600">KES {stats.monthly_earnings}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-semibold">Yearly Earnings</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Yearly Earnings</h2>
           <p className="text-xl font-bold text-indigo-600">KES {stats.yearly_earnings}</p>
         </div>
       </div>
 
       {/* Earnings Chart */}
-      <div className="bg-white p-6 rounded-lg shadow mt-8">
-        <h2 className="text-xl font-semibold mb-4">Earnings Overview</h2>
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mt-8">
+        <h2 className="text-xl font-semibold mb-4 dark:text-gray-200">Earnings Overview</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

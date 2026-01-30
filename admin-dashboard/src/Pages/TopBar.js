@@ -7,11 +7,11 @@ const Topbar = ({ title }) => {
   const user = storedUser ? JSON.parse(storedUser) : null;
 
   return (
-    <header className="h-16 bg-white shadow flex items-center justify-between px-6">
-      <h1 className="text-xl font-semibold">{title}</h1>
+    <header className="h-16 bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6">
+      <h1 className="text-xl dark:text-gray-100 font-semibold">{title}</h1>
       {user && (
         <div className="flex items-center space-x-4">
-          <span className="font-medium">{user.user_name}</span>
+          <span className="font-medium dark:text-gray-100">{user.user_name}</span>
           <img
             src={`${API_URL}${user.profile_image}`}
             alt="profile"

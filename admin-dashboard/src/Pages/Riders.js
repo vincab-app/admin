@@ -51,12 +51,12 @@ const Riders = () => {
       {loading ? (
         <p className="text-gray-600">Loading riders...</p>
       ) : riders.length === 0 ? (
-        <p className="text-gray-600">No riders found.</p>
+        <p className="text-gray-600 dark:text-gray-300">No riders found.</p>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
           <table className="min-w-full border-collapse">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold text-left">
                 <th className="p-4 border-b">Name</th>
                 <th className="p-4 border-b">Phone</th>
                 <th className="p-4 border-b">Email</th>
@@ -67,27 +67,27 @@ const Riders = () => {
             </thead>
             <tbody>
               {filteredRiders.map((rider) => (
-                <tr key={rider.id} className="hover:bg-gray-50">
+                <tr key={rider.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
                       src={`${API_URL}${rider.profile_image}`}
                       alt={rider.full_name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
-                    <span>{rider.full_name}</span>
+                    <span className="dark:text-gray-100">{rider.full_name}</span>
                   </td>
-                  <td className="p-4 border-b">{rider.phone_number}</td>
-                  <td className="p-4 border-b">{rider.email}</td>
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">{rider.phone_number}</td>
+                  <td className="p-4 border-b dark:text-gray-100">{rider.email}</td>
+                  <td className="p-4 border-b dark:text-gray-100">
                     {rider.current_lat !== 0.0 && rider.current_lng !== 0.0 ? (
                       <span>
                         Lat: {rider.current_lat}, Lng: {rider.current_lng}
                       </span>
                     ) : (
-                      <span className="text-gray-500">Unknown</span>
+                      <span className="text-gray-500 dark:text-gray-400">Unknown</span>
                     )}
                   </td>
-                  <td className="p-4 border-b">
+                  <td className="p-4 border-b dark:text-gray-100">
                     {new Date(rider.date_joined).toLocaleDateString()}
                   </td>
                   <td className="p-4 border-b">

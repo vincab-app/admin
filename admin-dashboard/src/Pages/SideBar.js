@@ -21,7 +21,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Top Bar (only small screens) */}
-      <div className="md:hidden flex items-center justify-between bg-blue-700 text-white px-4 py-3 shadow-md fixed top-0 left-0 right-0 z-50">
+      <div className="md:hidden flex items-center justify-between bg-blue-700 dark:bg-gray-800 text-white px-4 py-3 shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="text-xl font-bold">VinCab Admin</div>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -34,7 +34,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         className={`
-          fixed md:static top-0 left-0 h-full md:h-screen w-64 bg-blue-700 text-white flex flex-col transform transition-transform duration-300 z-40
+          fixed md:static top-0 left-0 h-full md:h-screen w-64 bg-blue-700 dark:bg-gray-800 text-white flex flex-col transform transition-transform duration-300 z-40
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >

@@ -49,7 +49,7 @@ export default function PushNotification() {
   return (
     <Layout title="Send Push Notification">
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
         <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">
           Send Push Notification
         </h2>
@@ -57,7 +57,7 @@ export default function PushNotification() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Notification Title
             </label>
             <input
@@ -72,7 +72,7 @@ export default function PushNotification() {
 
           {/* Message */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Message
             </label>
             <textarea
@@ -87,7 +87,7 @@ export default function PushNotification() {
 
           {/* Optional Data */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Extra Data (JSON - Optional)
             </label>
             <textarea

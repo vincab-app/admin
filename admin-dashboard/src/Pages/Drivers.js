@@ -88,12 +88,12 @@ const Drivers = () => {
       {loading ? (
         <p className="text-gray-600">Loading drivers...</p>
       ) : drivers.length === 0 ? (
-        <p className="text-gray-600">No drivers found.</p>
+        <p className="text-gray-600 dark:text-gray-700">No drivers found.</p>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
           <table className="min-w-full border-collapse">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold text-left">
                 <th className="p-4 border-b">Name</th>
                 <th className="p-4 border-b">Phone</th>
                 <th className="p-4 border-b">Email</th>
@@ -112,17 +112,17 @@ const Drivers = () => {
                       alt={driver.user.full_name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
-                    <span>{driver.user.full_name}</span>
+                    <span className="dark:text-gray-100">{driver.user.full_name}</span>
                   </td>
-                  <td className="p-4 border-b">{driver.user.phone_number}</td>
-                  <td className="p-4 border-b">{driver.user.email}</td>
-                  <td className="p-4 border-b">{driver.license_number}</td>
+                  <td className="p-4 border-b dark:text-gray-100">{driver.user.phone_number}</td>
+                  <td className="p-4 border-b dark:text-gray-100">{driver.user.email}</td>
+                  <td className="p-4 border-b dark:text-gray-100">{driver.license_number}</td>
 
                   <td className="p-4 border-b">
                     <select
                       value={driver.status}
                       onChange={(e) => handleUpdateStatus(driver.id, e.target.value)}
-                      className="border border-gray-300 rounded p-1 text-sm"
+                      className="border border-gray-300 rounded p-1 text-sm dark:bg-gray-700 dark:text-white"
                     >
                       <option value="active">Active</option>
                       <option value="busy">Busy</option>
