@@ -116,7 +116,7 @@ useEffect(() => {
   return (
     <Layout title={`Manage Rider: ${rider.full_name}`}>
 
-      <div className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow space-y-6">
+      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow space-y-6">
 
         {/* Profile */}
         <div className="flex items-center space-x-4">
@@ -126,24 +126,24 @@ useEffect(() => {
             className="w-16 h-16 rounded-full object-cover"
           />
           <div>
-            <h2 className="text-xl font-bold">{rider.full_name}</h2>
-            <p className="text-gray-500">{rider.email}</p>
+            <h2 className="text-xl font-bold dark:text-gray-100">{rider.full_name}</h2>
+            <p className="text-gray-500 dark:text-gray-300">{rider.email}</p>
           </div>
         </div>
 
         {/* Details */}
         <div className="grid grid-cols-2 gap-4">
-          <p><b>Phone:</b> {rider.phone_number}</p>
+          <p className="dark:text-gray-100"><b>Phone:</b> {rider.phone_number}</p>
           <p>
-            <b>Status:</b>{" "}
+            <b className="dark:text-gray-100">Status:</b>{" "}
             {rider.is_active ? (
               <span className="text-green-600">Active</span>
             ) : (
               <span className="text-red-600">Blocked</span>
             )}
           </p>
-          <p><b>Joined:</b> {new Date(rider.date_joined).toLocaleDateString()}</p>
-          <p><b>Verified:</b> {rider.phone_verified === true ? "Yes" : "No"}</p>
+          <p className="dark:text-gray-100"><b >Joined:</b> {new Date(rider.date_joined).toLocaleDateString()}</p>
+          <p className="dark:text-gray-100"><b>Verified:</b> {rider.phone_verified === true ? "Yes" : "No"}</p>
         </div>
 
         {/*  Feedback */}
