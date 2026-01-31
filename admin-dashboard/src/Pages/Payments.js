@@ -71,12 +71,12 @@ const Payments = () => {
                         key={payment.id}
                         className="border-b hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                       >
-                        <td className="p-2">
+                        <td className="p-2 dark:text-gray-100">
                           {payment.transaction_reference || `TXN-${payment.id}`}
                         </td>
                         <td className="p-2 dark:text-gray-100">{payment.rider_name}</td>
                         <td className="p-2 dark:text-gray-100">{payment.driver_name}</td>
-                        <td className="p-2 font-semibold">
+                        <td className="p-2 font-semibold dark:text-gray-100">
                           {parseFloat(payment.amount).toFixed(2)}
                         </td>
                         <td className="p-2 dark:text-gray-100">{payment.method}</td>
@@ -94,13 +94,13 @@ const Payments = () => {
                             {payment.status}
                           </span>
                         </td>
-                        <td className="p-2">
+                        <td className="p-2 dark:text-gray-100">
                           {payment.paid_at
                             ? new Date(payment.paid_at).toLocaleDateString()
                             : "-"}
                         </td>
                         <td className="p-2">
-                          <button className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
+                          <button className="px-3 py-1 border rounded  text-sm hover:bg-gray-100 dark:bg-gray-100 transition">
                             View
                           </button>
                         </td>

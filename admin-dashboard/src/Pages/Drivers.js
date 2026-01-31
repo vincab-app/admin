@@ -105,7 +105,7 @@ const Drivers = () => {
             </thead>
             <tbody>
               {drivers.map((driver) => (
-                <tr key={driver.id} className="hover:bg-gray-50">
+                <tr key={driver.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
                       src={`${API_URL}${driver.user.profile_image}`}
