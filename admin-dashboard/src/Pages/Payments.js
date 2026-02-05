@@ -77,7 +77,7 @@ const Payments = () => {
                         <td className="p-2 dark:text-gray-100">{payment.rider_name}</td>
                         <td className="p-2 dark:text-gray-100">{payment.driver_name}</td>
                         <td className="p-2 font-semibold dark:text-gray-100">
-                          {parseFloat(payment.amount).toFixed(2)}
+                          {parseFloat(payment.total_amount).toFixed(2)}
                         </td>
                         <td className="p-2 dark:text-gray-100">{payment.method}</td>
                         <td className="p-2">
