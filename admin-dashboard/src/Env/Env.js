@@ -1,1 +1,1 @@
-export const API_URL = "https://vincab-backend.onrender.com";
+export const API_URL = "http://192.168.100.12:8000";
