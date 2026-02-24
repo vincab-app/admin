@@ -121,7 +121,7 @@ useEffect(() => {
         {/* Profile */}
         <div className="flex items-center space-x-4">
           <img
-            src={`${API_URL}${rider.profile_image}` || "/avatar.png"}
+            src={rider.profile_image || "/avatar.png"}
             alt="profile"
             className="w-16 h-16 rounded-full object-cover"
           />

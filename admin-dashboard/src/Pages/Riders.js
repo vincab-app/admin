@@ -70,7 +70,7 @@ const Riders = () => {
                 <tr key={rider.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                   <td className="p-4 border-b flex items-center space-x-3">
                     <img
-                      src={`${API_URL}${rider.profile_image}`}
+                      src={rider.profile_image}
                       alt={rider.full_name}
                       className="w-10 h-10 rounded-full object-cover"
                     />

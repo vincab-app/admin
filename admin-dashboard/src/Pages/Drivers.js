@@ -116,7 +116,7 @@ const Drivers = () => {
                   <td className="p-4 border-b">
                     <div className="flex items-center space-x-3">
                       <img
-                        src={`${API_URL}${driver.user.profile_image}`}
+                        src={driver.user.profile_image || "/avatar.png"}
                         alt=""
                         className="w-10 h-10 rounded-full object-cover border border-gray-200"
                       />
@@ -135,7 +135,7 @@ const Drivers = () => {
                       {driver.id_front_image && (
                         <div className="group relative cursor-pointer" onClick={() => handleViewImage(`${API_URL}${driver.id_front_image}`, "Front ID")}>
                           <img 
-                            src={`${API_URL}${driver.id_front_image}`} 
+                            src={driver.id_front_image} 
                             className="h-12 w-16 object-cover rounded border hover:opacity-75 transition"
                             alt="Front"
                           />
@@ -145,7 +145,7 @@ const Drivers = () => {
                       {driver.id_back_image && (
                         <div className="group relative cursor-pointer" onClick={() => handleViewImage(`${API_URL}${driver.id_back_image}`, "Back ID")}>
                           <img 
-                            src={`${API_URL}${driver.id_back_image}`} 
+                            src={driver.id_back_image} 
                             className="h-12 w-16 object-cover rounded border hover:opacity-75 transition"
                             alt="Back"
                           />

@@ -13,7 +13,7 @@ const Topbar = ({ title }) => {
         <div className="flex items-center space-x-4">
           <span className="font-medium dark:text-gray-100">{user.user_name}</span>
           <img
-            src={`${API_URL}${user.profile_image}`}
+            src={user.profile_image}
             alt="profile"
             className="w-10 h-10 rounded-full object-cover"
           />
