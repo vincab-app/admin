@@ -133,7 +133,7 @@ const Drivers = () => {
                     <p className="text-sm font-semibold mb-2">ID: {driver.id_number || "N/A"}</p>
                     <div className="flex space-x-2">
                       {driver.id_front_image && (
-                        <div className="group relative cursor-pointer" onClick={() => handleViewImage(`${API_URL}${driver.id_front_image}`, "Front ID")}>
+                        <div className="group relative cursor-pointer" onClick={() => handleViewImage(driver.id_front_image, "Front ID")}>
                           <img 
                             src={driver.id_front_image} 
                             className="h-12 w-16 object-cover rounded border hover:opacity-75 transition"
@@ -143,7 +143,7 @@ const Drivers = () => {
                         </div>
                       )}
                       {driver.id_back_image && (
-                        <div className="group relative cursor-pointer" onClick={() => handleViewImage(`${API_URL}${driver.id_back_image}`, "Back ID")}>
+                        <div className="group relative cursor-pointer" onClick={() => handleViewImage(driver.id_back_image, "Back ID")}>
                           <img 
                             src={driver.id_back_image} 
                             className="h-12 w-16 object-cover rounded border hover:opacity-75 transition"
